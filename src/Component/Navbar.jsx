@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router";
 import Logo from "../assets/pet-paw.png";
+import { AuthContext } from "../Provider/AuthProvider";
+import { signOut } from "firebase/auth";
+import auth from "../firebase/firebase.config";
 
 const Navbar = () => {
+
+  const {user} = useContext(AuthContext);
+
+
+  const handleSignOut = () =>{
+    signOut(auth);
+  }
+
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="navbar-start">
@@ -68,12 +79,22 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
-      <div className="navbar-end">
+      {
+        user && <div className="navbar-end">
+        <button onClick={handleSignOut}
+          className="px-6 py-2 font-semibold text-white rounded-lg bg-gradient-to-r from-amber-600 via-orange-500 to-yellow-400 hover:from-yellow-400 hover:via-orange-500 hover:to-amber-600 transition-all duration-300 shadow-md hover:shadow-lg">Logout
+        </button>
+      </div>
+      }
+      {
+        !user && <div className="navbar-end">
         <Link
           to={"/Login"}
           className="px-6 py-2 font-semibold text-white rounded-lg bg-gradient-to-r from-amber-600 via-orange-500 to-yellow-400 hover:from-yellow-400 hover:via-orange-500 hover:to-amber-600 transition-all duration-300 shadow-md hover:shadow-lg">Login
         </Link>
       </div>
+      }
+      
     </div>
   );
 };

@@ -1,7 +1,39 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router";
+import { AuthContext } from "../Provider/AuthProvider";
+import { updateProfile } from "firebase/auth";
+import auth from "../firebase/firebase.config";
 
 const Register = () => {
+  const { registerWithEmailPassword, setUser, user } = useContext(AuthContext);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    const fullName = e.target.fullName.value;
+    const photoURL = e.target.photoURL.value;
+    
+    registerWithEmailPassword(email, password)
+      .then((userCredential) => {
+        updateProfile(auth.currentUser, {
+          displayName: fullName,
+          photoURL: photoURL,
+        })
+          .then(() => {
+            setUser(userCredential.user);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  console.log(user);
+  
   return (
     <div className="min-h-screen flex items-center justify-center p-6">
       <div className="rounded-2xl shadow-2xl p-8 w-[420px] border bg-white">
@@ -9,11 +41,12 @@ const Register = () => {
           Create Your Warm Paw Account
         </h2>
 
-        <form className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
           {/* Name */}
           <div>
             <label className="font-medium">Full Name</label>
             <input
+              name="fullName"
               type="text"
               placeholder="Enter your full name"
               className="w-full p-3 mt-1 rounded-lg border focus:ring focus:ring-amber-300 outline-none"
@@ -25,6 +58,7 @@ const Register = () => {
           <div>
             <label className="font-medium">Email</label>
             <input
+              name="email"
               type="email"
               placeholder="Enter your email"
               className="w-full p-3 mt-1 rounded-lg border focus:ring focus:ring-amber-300 outline-none"
@@ -36,6 +70,7 @@ const Register = () => {
           <div>
             <label className="font-medium">Photo URL</label>
             <input
+              name="photoURL"
               type="text"
               placeholder="Enter your photo URL"
               className="w-full p-3 mt-1 rounded-lg border focus:ring focus:ring-amber-300 outline-none"
@@ -46,6 +81,7 @@ const Register = () => {
           <div>
             <label className="font-medium">Password</label>
             <input
+              name="password"
               type="password"
               placeholder="Enter your password"
               className="w-full p-3 mt-1 rounded-lg border focus:ring focus:ring-amber-300 outline-none"
