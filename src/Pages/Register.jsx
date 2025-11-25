@@ -1,3 +1,4 @@
+import { FcGoogle } from "react-icons/fc";
 import React, { useContext } from "react";
 import { Link } from "react-router";
 import { AuthContext } from "../Provider/AuthProvider";
@@ -5,7 +6,8 @@ import { updateProfile } from "firebase/auth";
 import auth from "../firebase/firebase.config";
 
 const Register = () => {
-  const { registerWithEmailPassword, setUser, user } = useContext(AuthContext);
+  const { registerWithEmailPassword, setUser, user, handleGoogleSignIn } =
+    useContext(AuthContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -13,7 +15,20 @@ const Register = () => {
     const password = e.target.password.value;
     const fullName = e.target.fullName.value;
     const photoURL = e.target.photoURL.value;
-    
+
+    const uppercase = /[A-Z]/;
+    const lowercase = /[a-z]/;
+
+    if (password.length < 6) {
+      return alert("less than 6 characters");
+    }
+    if (!uppercase.test(password)) {
+      return alert("Need a Uppercase");
+    }
+    if (!lowercase.test(password)) {
+      return alert("Need a Lowercase");
+    }
+
     registerWithEmailPassword(email, password)
       .then((userCredential) => {
         updateProfile(auth.currentUser, {
@@ -33,7 +48,19 @@ const Register = () => {
   };
 
   console.log(user);
-  
+
+  // for google sign in
+  const googleSignIn = () => {
+    handleGoogleSignIn()
+      .then((result) => {
+        const user = result.user;
+        setUser(user);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center p-6">
       <div className="rounded-2xl shadow-2xl p-8 w-[420px] border bg-white">
@@ -95,6 +122,16 @@ const Register = () => {
             className="w-full text-center px-6 py-3 font-semibold text-white rounded-lg bg-gradient-to-r from-amber-600 via-orange-500 to-yellow-400 hover:from-yellow-400 hover:via-orange-500 hover:to-amber-600 transition-all duration-300 shadow-md hover:shadow-lg"
           >
             Register
+          </button>
+
+          {/* Google Login */}
+          <button
+            type="button"
+            onClick={googleSignIn}
+            className="w-full flex items-center justify-center gap-3 px-6 py-3 mt-2 font-semibold text-gray-700 rounded-lg border shadow-sm bg-white hover:shadow-md transition-all duration-300"
+          >
+            <FcGoogle />
+            Continue with Google
           </button>
         </form>
 

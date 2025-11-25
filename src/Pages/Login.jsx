@@ -1,30 +1,54 @@
+import { FcGoogle } from "react-icons/fc";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import React, { useContext } from "react";
-import { Link } from "react-router";
+import React, { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router";
 import auth from "../firebase/firebase.config";
 import { AuthContext } from "../Provider/AuthProvider";
 
 const Login = () => {
+  const { setUser, handleGoogleSignIn } = useContext(AuthContext);
 
-  const {setUser, user}  = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate()
+  const [email, setEmail] = useState('') 
+  console.log(location);
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
 
+   
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
         setUser(user);
+        navigate(location.state ? location.state : '/')
       })
       .catch((error) => {
         console.log(error);
       });
   };
+  // console.log(user);
 
-  console.log(user);
-  
+  // for google sign in
+  const googleSignIn = () => {
+    handleGoogleSignIn()
+      .then((result) => {
+        const user = result.user
+        setUser(user)
+      })
+      .catch((error) => {
+        console.log(error)
+      });
+  };
+
+  // for forget password
+  const handleForget = () =>{
+    navigate(`/forget/${email}`)
+    
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center p-6">
@@ -38,6 +62,7 @@ const Login = () => {
           <div>
             <label className="font-medium">Email</label>
             <input
+            onChange={(e) => setEmail(e.target.value)}
               name="email"
               type="email"
               placeholder="Enter your email"
@@ -60,9 +85,9 @@ const Login = () => {
 
           {/* Forget Password */}
           <div className="">
-            <a href="#" className="text-sm text-gray-600 hover:underline">
+            <button onClick={handleForget} href="#" className="text-sm text-gray-600 hover:underline">
               Forgot Password?
-            </a>
+            </button>
           </div>
 
           {/* Login Button — (your gradient style) */}
@@ -72,6 +97,15 @@ const Login = () => {
           >
             Login
           </Link>
+
+          {/* Google Login */}
+          <button
+            type="button"
+            onClick={googleSignIn}
+            className="w-full flex items-center justify-center gap-3 px-6 py-3 mt-2 font-semibold text-gray-700 rounded-lg border shadow-sm bg-white hover:shadow-md transition-all duration-300">
+            <FcGoogle />
+            Continue with Google
+          </button>
 
           <div className="">
             <span>Don't have an account?</span>

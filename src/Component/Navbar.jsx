@@ -75,7 +75,7 @@ const Navbar = () => {
             <Link to="/services">Services</Link>
           </li>
           <li className="font-semibold text-xl">
-            <Link to="">My Profile</Link>
+            <Link to="/Profile">My Profile</Link>
           </li>
         </ul>
       </div>
