@@ -37,29 +37,21 @@ const Navbar = () => {
           </div>
           <ul
             tabIndex="-1"
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+           className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[9999] mt-3 w-52 p-2 shadow"
           >
-            <li>
-              <a>Item 1</a>
-            </li>
-            <li>
-              <a>Parent</a>
-              <ul className="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a>Item 3</a>
-            </li>
+           <li className="font-semibold text-xl">
+            <Link to="/">Home</Link>
+          </li>
+          <li className="font-semibold text-xl">
+            <Link to="/services">Services</Link>
+          </li>
+          <li className="font-semibold text-xl">
+            <Link to="/Profile">My Profile</Link>
+          </li>
           </ul>
         </div>
         <div className="flex items-center">
-          <img className="w-20" src={Logo} alt="logo" />
+          <img className="w-20  hidden lg:block" src={Logo} alt="logo" />
           {/* <h3 className=" font-semibold text-3xl">Warm Paw</h3> */}
           <h3 className="font-semibold text-3xl bg-gradient-to-r from-rose-500 via-orange-400 to-yellow-400 bg-clip-text text-transparent">
             Warm Paw

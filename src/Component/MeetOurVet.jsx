@@ -27,14 +27,17 @@ const MeetOurVet = () => {
 
   return (
     <div>
-      <div className="mt-20 px-[140px]">
+      <div className="mt-20 px-5 sm:px-10 lg:px-[140px]">
         <h3 className="font-bold text-3xl text-center mb-10">
           Meet Our Expert Vets
         </h3>
 
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {vets.map((vet) => (
-            <div key={vet.id} className="card w-80 bg-base-100 shadow">
+            <div
+              key={vet.id}
+              className="card w-full sm:w-72 lg:w-80 bg-base-100 shadow mx-auto"
+            >
               <figure>
                 <img
                   className="h-[260px] w-full object-cover"
@@ -46,7 +49,7 @@ const MeetOurVet = () => {
                 <h2 className="card-title">{vet.name}</h2>
                 <p>{vet.specialty}</p>
                 <p className="text-gray-600">{vet.exp}</p>
-                <div className="card-actions justify-end">
+                <div className="card-actions justify-left">
                   <button className="btn btn-primary">Book Appointment</button>
                 </div>
               </div>

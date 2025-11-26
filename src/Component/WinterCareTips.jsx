@@ -34,17 +34,17 @@ const WinterCareTips = () => {
   ];
 
   return (
-    <div>
-      <div className="mt-20 px-[140px]">
+    <div className="mb-10">
+      <div className="mt-20 px-5 sm:px-10 lg:px-[140px]">
         <h3 className="font-bold text-3xl text-center mb-3">
           Winter Care Tips for Pets
         </h3>
-        <p className="text-center text-gray-600 mb-10 w-[70%] mx-auto">
+        <p className="text-center text-gray-600 mb-10 w-full sm:w-[80%] lg:w-[70%] mx-auto">
           Keep your furry friends safe and comfortable during the cold season
-          with these vet-approved winter care tips.
+          with these vet-approved winter care 
         </p>
 
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {tips.map((tip) => (
             <div
               key={tip.id}

@@ -23,10 +23,6 @@ const ServiceDetails = () => {
    
 
   return( 
-//   <div>
-//      <img src={findResult?.image} alt="" />
-//     </div>
-
 
 
  <div className="min-h-screen flex justify-center items-center p-6">
@@ -64,7 +60,7 @@ const ServiceDetails = () => {
         </p>
 
         {/* Booking Form */}
-        {/* <div className="mt-6 pt-6 border-t">
+         <div className="mt-6 pt-6 border-t">
           <h2 className="text-3xl font-bold text-center mb-5">Book Session</h2>
 
           <form
@@ -96,7 +92,7 @@ const ServiceDetails = () => {
               Submit
             </button>
           </form>
-        </div> */}
+        </div> 
 
       </div>
     </div>
