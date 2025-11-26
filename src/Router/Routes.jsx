@@ -9,12 +9,14 @@ import Profile from "../Pages/Profile";
 import PrivateRoute from "./PrivateRoute";
 import ServiceDetails from "../Pages/ServiceDetails";
 import ForgetPass from "../Pages/ForgetPass";
+import Error from "../Pages/Error";
 
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout></RootLayout>,
+    errorElement: <Error></Error>,
     children:[
         {
             path: "/",
