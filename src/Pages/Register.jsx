@@ -1,11 +1,12 @@
 import { FcGoogle } from "react-icons/fc";
 import React, { useContext } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../Provider/AuthProvider";
 import { updateProfile } from "firebase/auth";
 import auth from "../firebase/firebase.config";
 
 const Register = () => {
+  const navigate =  useNavigate();
   const { registerWithEmailPassword, setUser, user, handleGoogleSignIn } =
     useContext(AuthContext);
 
@@ -37,6 +38,7 @@ const Register = () => {
         })
           .then(() => {
             setUser(userCredential.user);
+             navigate("/");
           })
           .catch((error) => {
             console.log(error);
@@ -55,6 +57,7 @@ const Register = () => {
       .then((result) => {
         const user = result.user;
         setUser(user);
+        navigate("/")
       })
       .catch((error) => {
         console.log(error);

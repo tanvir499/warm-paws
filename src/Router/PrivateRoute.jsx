@@ -11,7 +11,7 @@ const PrivateRoute = ({children}) => {
       console.log(location);
 
     if(loading){
-        return <p className='flex justify-center items-center'><HashLoader  color="#049347" /></p>
+        return <div className="h-screen flex justify-center items-center"><HashLoader  color="#049347" /></div>
     }
     if(user){
         return children

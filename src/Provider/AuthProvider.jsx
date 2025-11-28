@@ -14,12 +14,15 @@ const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null);
 
   const registerWithEmailPassword = (email, password) => {
+    // setLoading(false)
     return createUserWithEmailAndPassword(auth, email, password)
   };
 
 //   for google login/ signin
   const handleGoogleSignIn = () =>{
+     setLoading(true)
      return signInWithPopup(auth, GoogleProvider)
+     
   }
 
   useEffect(() => {
